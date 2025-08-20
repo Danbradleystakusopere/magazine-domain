@@ -34,9 +34,24 @@ class Magazine:
         else:
             raise Exception("Category must be a non-empty string")
 
+
     def articles(self):
         return [article for article in Article.all if article.magazine == self]
 
     
     def contributors(self):
         return list({article.author for article in self.articles()})
+    
+        
+    def article_titles(self):
+        if len(self.articles()) == 0:
+            return None
+        return [article.title for article in self.articles()]
+
+    
+    def contributing_authors(self):
+        if len(self.articles()) == 0:
+            return None
+        authors = [article.author for article in self.articles()]
+        return [author for author in set(authors) if authors.count(author) > 2] or None
+
