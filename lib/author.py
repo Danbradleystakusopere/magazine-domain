@@ -1,5 +1,4 @@
 from lib.article import Article
-from lib.magazine import Magazine
 
 class Author:
     def __init__(self, name):
@@ -17,14 +16,11 @@ class Author:
     def magazines(self):
         return list({article.magazine for article in self.articles()})
 
-    
     def add_article(self, magazine, title):
-        if not isinstance(magazine, Magazine):
-            raise Exception("Must pass a Magazine instance")
+        from lib.article import Article
         return Article(self, magazine, title)
 
-    
     def topic_areas(self):
         if len(self.articles()) == 0:
             return None
-        return list({magazine.category for magazine in self.magazines()})
+        return list({article.magazine.category for article in self.articles()})
