@@ -1,12 +1,11 @@
-
+from lib.article import Article
+from lib.author import Author
 
 class Magazine:
     def __init__(self, name, category):
-        
         if type(name) is not str or len(name) < 2 or len(name) > 16:
             raise Exception("Name must be a string between 2 and 16 characters")
 
-        
         if type(category) is not str or len(category) == 0:
             raise Exception("Category must be a non-empty string")
 
@@ -34,3 +33,10 @@ class Magazine:
             self._category = new_category
         else:
             raise Exception("Category must be a non-empty string")
+
+    def articles(self):
+        return [article for article in Article.all if article.magazine == self]
+
+    
+    def contributors(self):
+        return list({article.author for article in self.articles()})
